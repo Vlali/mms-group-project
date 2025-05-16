@@ -8,7 +8,7 @@ import java.awt.event.*;
 public class Board extends JPanel implements ActionListener {
 
     private final int boardWidth = 10;
-    private final int boardHeight = 20;
+    private final int boardHeight = 19;   //its working with 19, otherwise the element is going out of the grid
     private Timer timer;
     private boolean isFallingFinished = false;
     private boolean isStarted = false;
@@ -90,7 +90,7 @@ public class Board extends JPanel implements ActionListener {
             int x = currentX + currentPiece.getX(i);
             int y = currentY + currentPiece.getY(i);
             if (y >= 0) {
-                board[y][x] = currentPiece.getShape();
+                board[y][x] = currentPiece.getShape();      //in order of this not going below the grid
             }
         }
     }
