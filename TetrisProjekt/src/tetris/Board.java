@@ -19,12 +19,27 @@ public class Board extends JPanel implements ActionListener {
     private Tetromino.Shape[][] board;
     private int score = 0;
 
+    private JLabel pointsLabel;
+
+
     public Board() {
         setFocusable(true);
         setPreferredSize(new Dimension(300, 600));
+        setLayout(null);
+
         currentPiece = new Tetromino();
         board = new Tetromino.Shape[boardHeight][boardWidth];
         clearBoard();
+
+
+//label for score , which comes up after a line is cleared
+
+        pointsLabel = new JLabel("100 Score", SwingConstants.CENTER);
+        pointsLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        pointsLabel.setForeground(Color.YELLOW);
+        pointsLabel.setBounds(100,250,100,30);
+        pointsLabel.setVisible(false);   
+        add(pointsLabel);     
 
         addKeyListener(new TAdapter());
 
@@ -127,7 +142,19 @@ public class Board extends JPanel implements ActionListener {
 
         if (linesCleared > 0) {
             score += linesCleared * 100;
+
+            showPoints(score);
+            
+        
         }
+    }
+
+    private void showPoints(int score) {
+        pointsLabel.setText(score + " Score");
+        pointsLabel.setVisible(true);
+        Timer timer = new Timer(1000, e -> pointsLabel.setVisible(false));
+        timer.setRepeats(false);
+        timer.start();
     }
 
     @Override
